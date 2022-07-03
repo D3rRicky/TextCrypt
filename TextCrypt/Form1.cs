@@ -17,7 +17,7 @@ namespace TextCrypt
             if (input != String.Empty)
             {
                 byte[] byteArray = crypt.EncryptText(input);
-                RtbOutput.Text = Encoding.Default.GetString(byteArray, 0, byteArray.Length);
+                RtbOutput.Text = Convert.ToBase64String(byteArray, 0, byteArray.Length);
             }
             else
             {
@@ -30,8 +30,7 @@ namespace TextCrypt
             string input = RtbInput.Text;
             if (input != String.Empty)
             {
-                byte[] byteArray = crypt.DecryptText(input);
-                RtbOutput.Text = Encoding.Default.GetString(byteArray, 0, byteArray.Length);
+                RtbOutput.Text = crypt.DecryptText(Convert.FromBase64String(input));
             }
             else
             { 

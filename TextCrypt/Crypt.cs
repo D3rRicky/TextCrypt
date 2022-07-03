@@ -44,17 +44,16 @@ namespace TextCrypt
             return encryptedText;
         }
 
-        public byte[] DecryptText(string input)
+        public string DecryptText(byte[] input)
         {
-            byte[] plainText = { };
-            using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(input)))
+            string plainText;
+            using (MemoryStream ms = new MemoryStream(input))
             {
                 using (CryptoStream cryptoStream = new CryptoStream(ms, aes.CreateDecryptor(keyBytes, ivBytes), CryptoStreamMode.Read))
                 {
                     using (StreamReader streamReader = new StreamReader(cryptoStream))
                     {
-                        string temp = streamReader.ReadToEnd();
-                        plainText = Encoding.Unicode.GetBytes(temp);
+                        plainText = streamReader.ReadToEnd();
                     }
                 }
             }
